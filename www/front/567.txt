@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	
+	<head>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8;"> 
+    <title> Проект  </title>
+    <meta name="description" content="Детали много деталей">
+    <meta name="keywords" content="Детали">
+    <link href="/css/bootstrap.css" media="screen" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="/js/jquery-1.11.3.js"></script>
+    
+	</head>
+	<body>
+		<div id="container-header"></div>
+		<div id="container-mid"></div>
+		<div id="container-footer"></div>
+		</div>
+	</body>
+</html>
+
+
+<script 
+	type="text/javascript" 
+	src="http://127.0.0.1:8391/socket.io/socket.io.js"
+></script>
+<script type="text/javascript">
+    window.iosocket = io.connect('127.0.0.1:8391',{ query: "userid=1"}); 
+
+    window.iosocket.on('init',function(data)
+    {
+        data.A_TYPE = 'FROM NODE';
+        
+        try{
+            window.types_array[data.type].callback(data);
+            window.types_array[data.type] = null;
+        } catch(some){};
+        
+        try{
+            eval(data.type )(data);
+        } catch(some){};
+        
+        //console.log(data);
+    });
+
+</script>
